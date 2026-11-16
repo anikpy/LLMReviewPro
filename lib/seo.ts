@@ -30,6 +30,7 @@ interface BuildMetadataInput {
   authors?: string[];
   keywords?: string[];
   noindex?: boolean;
+  robots?: Metadata["robots"];
   locale?: string;
 }
 
@@ -89,18 +90,20 @@ export function buildMetadata(input: BuildMetadataInput): Metadata {
       creator: site.twitterHandle,
       images: [ogImage],
     },
-    robots: input.noindex
-      ? { index: false, follow: true }
-      : {
-          index: true,
-          follow: true,
-          googleBot: {
+    robots: input.robots
+      ? input.robots
+      : input.noindex
+        ? { index: false, follow: true }
+        : {
             index: true,
             follow: true,
-            "max-image-preview": "large",
-            "max-snippet": -1,
+            googleBot: {
+              index: true,
+              follow: true,
+              "max-image-preview": "large",
+              "max-snippet": -1,
+            },
           },
-        },
   };
 
   return meta;

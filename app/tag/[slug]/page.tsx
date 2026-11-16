@@ -35,6 +35,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
     path: page > 1 ? `/tag/${slug}?page=${page}` : `/tag/${slug}`,
     keywords: [`${tag.name} LLM`, `${tag.name} articles`, `${tag.name} reviews`, `${tag.name} tutorials`],
     noindex,
+    robots: { index: false, follow: true },
   });
 }
 
